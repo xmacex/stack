@@ -15,6 +15,7 @@ Filter selection can be recorded and played back as a pattern.
 ## crow
 
 - crow `input 1` to choose which filter is active
+- crow `input 2` to gate recording/playback, like `KEY2` and `KEY3`
 - crow `output 1` active filter frequency
 
 Stack operates on a stereo input signal.
