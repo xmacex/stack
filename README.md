@@ -15,9 +15,9 @@ Filter selection can be recorded and played back as a pattern.
 ## crow
 
 - `CV in  INPUT1` to choose which filter is active
-- Gate ``INPUT2` to recording/playback, like `KEY2` and `KEY3`
+- Gate `INPUT2` to recording/playback, like `KEY2` and `KEY3`
 - `OUTPUT1` active filter frequency in v/oct
-- `OUTPUT2` pattern trigger
+- `OUTPUT2` pattern triggers
 
 Stack operates on a stereo input signal.
  
