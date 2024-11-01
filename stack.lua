@@ -98,10 +98,18 @@ function setup_grid()
 end
 
 function setup_crow()
-   -- crow.input[1].mode('window', {0.5, 1.0, 1.5, 2, 2.5, 3, 3.5, 4})
    crow.input[1].mode('window', {1,2,3,4,5,6,7,8})
    crow.input[1].window = function(window, increase)
-      params:set("filter", window)
+      params:set('filter', window)
+   end
+   crow.input[2].mode('change', 1.0, 0.1, 'both')
+   crow.input[2].change = function(rising)
+      if rising then
+         record_pattern()
+      else
+         playback_pattern()
+      end
+      redraw()
    end
 end
 
