@@ -11,6 +11,7 @@
 -- INPUT1 select filter
 -- INPUT2 gate recording
 -- OUTPUT1 filter v/oct
+-- OUTPUT2 pattern trigger
 
 -----------------------------
 -- INCLUDES
@@ -117,6 +118,7 @@ function setup_crow()
       end
       redraw()
    end
+   crow.output[2].action = "pulse()"
 end
 
 function output_crow()
@@ -129,6 +131,7 @@ end
 
 function process_pattern(ev)
   params:set("filter", ev.idx)
+  crow.output[2]()
 end
 
 function record_pattern()
