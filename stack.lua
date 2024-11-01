@@ -6,6 +6,11 @@
 -- KEY2 record pattern
 -- KEY3 stop recording + play pattern
 -- Press KEY2 then KEY3 to stop pattern (records empty pattern)
+--
+-- crow
+-- INPUT1 select filter
+-- INPUT2 gate recording
+-- OUTPUT1 filter v/oct
 
 -----------------------------
 -- INCLUDES
