@@ -31,6 +31,7 @@ initital_monitor_level = 0
 -----------------------------
 
 function init()
+  setup_crow()
   setup_grid()
   setup_params()
   setup_pattern()
@@ -60,13 +61,19 @@ function set_active_filter(idx)
     ev.idx = idx
     pattern:watch(ev)
   end
-  
+
   redraw()
   redraw_grid()
+  output_crow()
 end
 
 function filter_hz(idx)
   return math.floor(31.5 * math.pow(2, idx))
+end
+
+function filter_voct(idx)
+   local hz = filter_hz(idx)
+   return math.log((hz/55)/2^.25)/math.log(2)
 end
 
 function setup_params()
@@ -88,6 +95,18 @@ end
 function setup_grid()
   g = grid.connect()
   g.key = grid_key
+end
+
+function setup_crow()
+   -- crow.input[1].mode('window', {0.5, 1.0, 1.5, 2, 2.5, 3, 3.5, 4})
+   crow.input[1].mode('window', {1,2,3,4,5,6,7,8})
+   crow.input[1].window = function(window, increase)
+      params:set("filter", window)
+   end
+end
+
+function output_crow()
+   crow.output[1].volts = filter_voct(params:get('filter'))
 end
 
 -----------------------------

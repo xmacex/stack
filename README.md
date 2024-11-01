@@ -12,6 +12,11 @@ Filter selection can be recorded and played back as a pattern.
 - Play around with your input audio!
 - Press `KEY2` then `KEY3` to clear pattern (record empty pattern)
 
+## crow
+
+- crow `input 1` to choose which filter is active
+- crow `output 1` active filter frequency
+
 Stack operates on a stereo input signal.
  
 ## Installation
