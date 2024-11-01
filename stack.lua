@@ -37,6 +37,7 @@ initital_monitor_level = 0
 
 function init()
   setup_crow()
+  norns.crow.add = setup_crow
   setup_grid()
   setup_params()
   setup_pattern()
