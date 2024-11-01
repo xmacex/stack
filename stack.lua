@@ -117,6 +117,23 @@ function process_pattern(ev)
   params:set("filter", ev.idx)
 end
 
+function record_pattern()
+   if recording then
+      return
+   end
+
+   pattern:stop()
+   pattern:clear()
+   pattern:rec_start()
+   recording = true
+end
+
+function playback_pattern()
+   pattern:rec_stop()
+   pattern:start()
+   recording = false
+end
+
 -----------------------------
 -- INPUT
 -----------------------------
@@ -129,19 +146,10 @@ end
 function key(n, z)
   if n == 2 then
     -- Start recording
-    if recording then
-      return
-    end
-    
-    pattern:stop()
-    pattern:clear()
-    pattern:rec_start()
-    recording = true
+    record_pattern()
   elseif n == 3 then
     -- Start playback
-    pattern:rec_stop()
-    pattern:start()
-    recording = false
+    playback_pattern()
   end
   
   redraw()
