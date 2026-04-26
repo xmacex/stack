@@ -18,6 +18,7 @@ Filter selection can be recorded and played back as a pattern.
 - Gate `INPUT2` to recording/playback, like `KEY2` and `KEY3`
 - `OUTPUT1` active filter frequency in v/oct
 - `OUTPUT2` pattern triggers
+- `OUTPUT3` output amplitude
 
 Stack operates on a stereo input signal.
  

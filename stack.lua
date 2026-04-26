@@ -12,6 +12,7 @@
 -- INPUT2 gate recording
 -- OUTPUT1 filter v/oct
 -- OUTPUT2 pattern trigger
+-- OUTPUT3 output amplitude
 
 -----------------------------
 -- INCLUDES
@@ -32,6 +33,10 @@ engine.name = "Stack"
 recording = false
 initital_monitor_level = 0
 
+amp_poll = nil
+amp_poll_data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+amp_avg = 0
+
 -----------------------------
 -- INIT / CLEANUP
 -----------------------------
@@ -42,6 +47,7 @@ function init()
   setup_grid()
   setup_params()
   setup_pattern()
+  setup_poll()
 end
 
 function cleanup()
@@ -62,7 +68,7 @@ function set_active_filter(idx)
   engine.v7(idx == 7 and 1 or 0)
   engine.v8(idx == 8 and 1 or 0)
   engine.v9(idx == 9 and 1 or 0)
-  
+
   if recording then
     ev = {}
     ev.idx = idx
@@ -86,7 +92,7 @@ end
 function setup_params()
   initital_monitor_level = params:get('monitor_level')
   params:set('monitor_level', -math.huge)
-  
+
   params:add_number("filter", "Selected Filter", 1, 9, 1)
   params:set_action("filter", function(idx) set_active_filter(idx) end)
 
@@ -119,6 +125,24 @@ function setup_crow()
       redraw()
    end
    crow.output[2].action = "pulse()"
+
+   crow.output[3].slew = 0.1
+end
+
+function setup_poll()
+   amp_poll = poll.set("amp_out_l")
+   amp_poll.callback = function(amp)
+      local sum = 0
+      table.remove(amp_poll_data)
+      table.insert(amp_poll_data, 1, amp)
+      for _,v in ipairs(amp_poll_data) do
+	 sum = sum + v
+      end
+      amp_avg = sum/tab.count(amp_poll_data)
+      crow.output[3].volts = util.linlin(0, 0.3, 0, 10, amp_avg)
+   end
+   amp_poll.time = 1/100
+   amp_poll:start()
 end
 
 function output_crow()
