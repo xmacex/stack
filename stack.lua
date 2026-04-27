@@ -12,7 +12,8 @@
 -- INPUT2 gate recording
 -- OUTPUT1 filter v/oct
 -- OUTPUT2 pattern trigger
--- OUTPUT3 output amplitude
+-- OUTPUT3 left out amplitude
+-- OUTPUT4 right out amplitude
 
 -----------------------------
 -- INCLUDES
@@ -33,21 +34,30 @@ engine.name = "Stack"
 recording = false
 initital_monitor_level = 0
 
-amp_poll = nil
-amp_poll_data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-amp_avg = 0
+amp = {
+   l ={
+      poll = nil,
+      data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      avg = 0
+   },
+   r = {
+      poll = nil,
+      data = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      avg = 0
+   }
+}
 
 -----------------------------
 -- INIT / CLEANUP
 -----------------------------
 
 function init()
-  setup_crow()
-  norns.crow.add = setup_crow
   setup_grid()
   setup_params()
+  setup_crow()
+  norns.crow.add = setup_crow
   setup_pattern()
-  setup_poll()
+  setup_polls()
 end
 
 function cleanup()
@@ -100,7 +110,10 @@ function setup_params()
   set_active_filter(1)
 
   params:add_taper("env_follower_slew", "Env Follower Smoothing", 0, 1, 0.1)
-  params:set_action("env_follower_slew", function(v) crow.output[3].slew = v end)
+  params:set_action("env_follower_slew", function(v)
+		       crow.output[3].slew = v
+		       crow.output[4].slew = v
+  end)
 end
 
 function setup_pattern()
@@ -130,22 +143,37 @@ function setup_crow()
    crow.output[2].action = "pulse()"
 
    crow.output[3].slew = params:get("env_follower_slew")
+   crow.output[4].slew = params:get("env_follower_slew")
 end
 
-function setup_poll()
-   amp_poll = poll.set("amp_out_l")
-   amp_poll.callback = function(amp)
+function setup_polls()
+   amp["l"].poll = poll.set("amp_out_l")
+   amp["l"].poll.callback = function(v)
       local sum = 0
-      table.remove(amp_poll_data)
-      table.insert(amp_poll_data, 1, amp)
-      for _,v in ipairs(amp_poll_data) do
-	 sum = sum + v
+      table.remove(amp["l"].data)
+      table.insert(amp["l"].data, 1, v)
+      for _,d in ipairs(amp["l"].data) do
+	 sum = sum + d
       end
-      amp_avg = sum/tab.count(amp_poll_data)
-      crow.output[3].volts = util.linlin(0, 0.3, 0, 10, amp_avg)
+      amp["l"].avg = sum/tab.count(amp["l"].data)
+      crow.output[3].volts = util.linlin(0, 0.3, 0, 10, amp["l"].avg)
    end
-   amp_poll.time = 1/100
-   amp_poll:start()
+   amp["l"].poll.time = 1/100
+   amp["l"].poll:start()
+
+   amp["r"].poll = poll.set("amp_out_r")
+   amp["r"].poll.callback = function(v)
+      local sum = 0
+      table.remove(amp["r"].data)
+      table.insert(amp["r"].data, 1, v)
+      for _,d in ipairs(amp["r"].data) do
+	 sum = sum + d
+      end
+      amp["r"].avg = sum/tab.count(amp["r"].data)
+      crow.output[4].volts = util.linlin(0, 0.3, 0, 10, amp["r"].avg)
+   end
+   amp["r"].poll.time = 1/100
+   amp["r"].poll:start()
 end
 
 function output_crow()
