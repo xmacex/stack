@@ -2,6 +2,8 @@
 
 A stack of 8 fixed-frequency resonant bandpass filters, for Monome Norns. Each filter is one octave apart.
 
+![](cover.png)
+
 - Use `ENC1` to choose which filter is active
 
 Filter selection can be recorded and played back as a pattern.
