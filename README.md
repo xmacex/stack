@@ -2,7 +2,7 @@
 
 A stack of 8 fixed-frequency resonant bandpass filters, for Monome Norns. Each filter is one octave apart.
 
-![](cover.png)
+![](stack.gif)
 
 - Use `ENC1` to choose which filter is active
 
@@ -26,6 +26,8 @@ Filter selection can be recorded and played back as a pattern.
 Stack operates on a stereo input signal.
 
 This is a crow-enabled fork of [the Stack script by cfdrake](https://github.com/cfdrake/).
+
+![](cover.png)
  
 ## Installation
 
