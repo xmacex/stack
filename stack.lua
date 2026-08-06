@@ -14,6 +14,9 @@
 -- OUTPUT2 pattern trigger
 -- OUTPUT3 left out amplitude
 -- OUTPUT4 right out amplitude
+--
+-- original script by @jfd90
+-- crow enabled fork by @xmacex
 
 -----------------------------
 -- INCLUDES

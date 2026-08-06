@@ -14,7 +14,7 @@ Filter selection can be recorded and played back as a pattern.
 
 ## crow
 
-- `CV in  INPUT1` to choose which filter is active
+- CV in `INPUT1` to choose which filter is active
 - Gate `INPUT2` to recording/playback, like `KEY2` and `KEY3`
 - `OUTPUT1` active filter frequency in v/oct
 - `OUTPUT2` pattern triggers
@@ -22,18 +22,12 @@ Filter selection can be recorded and played back as a pattern.
 - `OUTPUT4` right output amplitude
 
 Stack operates on a stereo input signal.
+
+This is a crow-enabled fork of [the Stack script by cfdrake](https://github.com/cfdrake/).
  
 ## Installation
 
-[Download latest release](https://github.com/cfdrake/stack/archive/master.zip) and copy files into `~/dust/code/stack`.
-
-Or use Git:
-
-```
-<ssh into your Norns>
-$ cd ~/dust/code
-$ git clone https://github.com/cfdrake/stack.git
-```
+Install via Maiden with the usual `;install https://github.com/xmacex/stack`. The original Stack without crow features is in the community catalog.
 
 Note that after installing you must `SYSTEM => RESET` your Norns before running this script, as it includes a new SuperCollider engine.
 
