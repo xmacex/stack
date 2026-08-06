@@ -7,6 +7,11 @@
 -- KEY3 stop recording + play pattern
 -- Press KEY2 then KEY3 to stop pattern (records empty pattern)
 --
+-- grid
+-- Row 1, Col 1-9 = select active filter
+-- Row 2, Col 1 = start recording/stop playback
+-- Row 2, Col 2 = stop recording/begin playback
+--
 -- crow
 -- INPUT1 select filter
 -- INPUT2 gate recording

@@ -14,6 +14,12 @@ Filter selection can be recorded and played back as a pattern.
 - Play around with your input audio!
 - Press `KEY2` then `KEY3` to clear pattern (record empty pattern)
 
+## grid
+
+- `Row 1, Col 1-9` = select active filter, like `ENC1`
+- `Row 2, Col 1` = start recording/stop playback, like `KEY2`
+- `Row 2, Col 2` = stop recording/begin playback, like `KEY3`
+
 ## crow
 
 - CV in `INPUT1` to choose which filter is active
